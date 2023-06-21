@@ -1,0 +1,46 @@
+div.contactUs {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: #2f466c;
+  height: 40vh;
+  color: white;
+  flex-wrap: wrap;
+}
+div.bold {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+div.download svg {
+  height: 25px;
+  fill: currentColor;
+}
+
+div.contactIcons svg {
+  height: 30px;
+  fill: currentColor;
+  margin-right: 7.5px;
+}
+
+div.onhover:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+div.download {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px;
+  border: solid white 2px;
+  border-radius: 25px;
+  margin-top: 10%;
+  margin-bottom: 7.5%;
+}
+
+@media screen and (max-width: 800px) {
+  div.contactUs > div {
+    width: 40vw;
+  }
+}

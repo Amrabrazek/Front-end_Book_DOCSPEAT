@@ -1,0 +1,68 @@
+.navTop {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px 10px 20px;
+  align-items: center;
+  border-bottom: solid 2.5px rgb(199, 196, 196);
+  margin-bottom: 10px;
+}
+
+div.navLogo {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #f27030;
+}
+div.navLogo:hover {
+  cursor: pointer;
+}
+
+div.navSearch {
+  position: relative;
+}
+div.navSearch svg {
+  height: 30px;
+  position: absolute;
+  right: 5px;
+  top: 10px;
+}
+
+div.navSearch input {
+  width: 70vw;
+  height: 50px;
+  border: solid;
+  border-radius: 30px;
+  padding-left: 10px;
+}
+
+div.cart {
+  display: flex;
+  gap: 15px;
+}
+div.cart svg {
+  height: 30px;
+}
+
+.user-cart:hover {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 900px) {
+  .navTop {
+    flex-direction: column;
+    gap: 15px;
+  }
+  div.navLogo {
+    font-size: 3rem;
+  }
+}
+
+div.slogan {
+  font-style: italic;
+  font-size: 1.25rem;
+}
+
+div.slogan span {
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: #f27030;
+}

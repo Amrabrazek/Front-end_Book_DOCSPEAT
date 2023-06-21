@@ -1,0 +1,5 @@
+.carousel-itemx .carousel-image {
+    height: 500px; /* set the desired height for the images */
+    object-fit: contain; /* or object-fit: contain; depending on your preference */
+    width: 100%; /* ensure the image width fills the slider */
+}

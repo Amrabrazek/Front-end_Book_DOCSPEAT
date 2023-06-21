@@ -1,0 +1,23 @@
+div.footer {
+  display: flex;
+  height: 7.5vh;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: #232347;
+  gap: 20px;
+}
+div.footer svg {
+  height: 25px;
+  fill: currentColor;
+}
+div.iconSection {
+  display: flex;
+  gap: 5px;
+  padding: 5px;
+  border-radius: 20px;
+}
+div.iconSection:hover {
+  background-color: rgb(255, 255, 255, 0.1);
+  cursor: pointer;
+}

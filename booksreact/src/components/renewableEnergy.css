@@ -1,0 +1,28 @@
+div.renewableEnergy {
+  background-color: #4d6bc6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  height: 10vh;
+  color: white;
+  position: relative;
+}
+
+div.renewableEnergy svg {
+  height: 30px;
+}
+
+div.renewableEnergy p {
+  padding: 0;
+  margin: 0;
+  text-decoration: underline dashed 1px;
+  font-size: 1.2rem;
+}
+
+.svgRight {
+  min-height: 80px;
+  position: absolute;
+  bottom: calc(100% - 25px);
+  right: 0;
+}
