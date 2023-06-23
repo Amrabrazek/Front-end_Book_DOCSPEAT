@@ -9,8 +9,8 @@ export function Mycard(prop) {
     // console.log(product)
     return (
     <div className='m-2'> 
-        <Card style={{ width: '18rem', height: "450px" }}>
-        <Card.Img style={{ height:"200px", objectFit: "contain"}} variant="top" src={`http://127.0.0.1:8000${book.book_cover}`} alt={`${book.title}`} />
+        <Card style={{ width: '18rem', height: "350px" }}>
+        <Card.Img style={{ height:"200px", objectFit: "contain"}} variant="top" src={`${book.book_cover}`} alt={`${book.title}`} />
         {/* <Card.Img style={{ height:"200px", objectFit: "contain"}} variant="top" src="./xyz.jpeg" alt={`${book.title}`} /> */}
         <Card.Body>
             <Card.Title className='text-center'>{book.title}</Card.Title>

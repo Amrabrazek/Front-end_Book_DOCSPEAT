@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UserContext, ProductsContext } from '../context'
+import { UserContext } from '../context'
 import React, { useEffect, useState, useContext } from "react";
 import { Mycard } from './Mycard';
 
@@ -11,13 +11,13 @@ export function Bookscards(prop) {
   
   // let {author_id} = prop
   const [books, setBooks] = useState([]);
-
+  let apiUrl = 'http://127.0.0.1:8000/api/book'
   useEffect(() => {
     // getting the author books
     axios
-      .get(`http://127.0.0.1:8000/api/book`)
+      .get(apiUrl)
       .then(res => {
-        const filteredBooks = res.data.filter(book => book.author.id == author_id);
+        const filteredBooks = res.data.filter(book => book.author == author_id);
         setBooks(filteredBooks);
       })
       .catch(err => {

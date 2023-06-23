@@ -1,10 +1,14 @@
 import './App.css';
-import React, { useState, Component } from 'react';
+import React, { useState, Component, useEffect } from 'react';
 import axios from 'axios';
 import { Route, Routes } from 'react-router-dom';
+import { Registeration } from './pages/Registeration';
+import { Loginpage } from './pages/Loginpage';
 import { NotFound } from './pages/Notfound';
 import { Profile } from './pages/author/Profile';
 import { Home } from './pages/author/Home';
+import { Addbookpage } from './pages/author/Addbookpage';
+
 
 import {
   UserContext,
@@ -13,11 +17,14 @@ import {
 
 
 function App() {
+
   const [authUser, setAuthUser] = useState({});
 
   // setAuthUser({id:1})
 
   const user_id = 2
+
+
 
 
 
@@ -33,8 +40,12 @@ function App() {
            */}
 
           {/* author */}
+          <Route path="register" element={<Registeration />} />
+          <Route path="login" element={<Loginpage />} />
+
           <Route path="author/profile/:author_id" element={<Profile />} />
           <Route path="author/home/:author_id" element={<Home />} />
+          <Route path="author/addbook" element={<Addbookpage />} />
 
           <Route path="*" element={<NotFound />} />
 

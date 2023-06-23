@@ -1,0 +1,51 @@
+.login {
+  height: 100vh;
+  background-image: url("../assets/images/BG.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  animation: animateLoginBG alternate infinite 5s;
+}
+
+.login > h1 {
+    color: var(--dark-orange);
+}
+
+.login-form {
+  width: 25rem;
+  border-radius: 1em;
+  color: wheat;
+}
+
+.password-list {
+  list-style: inside;
+}
+.register-text > span {
+  font-size: 1.5rem;
+  margin-left: 5px;
+  color: var(--dark-orange) !important;
+  letter-spacing: 0.1em;
+  text-decoration-line: underline;
+  text-decoration-thickness: 0.01em;
+  text-underline-offset: 0.4em;
+  transition: all 1s;
+}
+.register-text > span:hover {
+  cursor: pointer;
+  color: rgb(8, 218, 255) !important;
+}
+
+
+.login-btn {
+    margin-top: 2rem;
+}
+
+@keyframes animateLoginBG {
+  from {
+
+    background-position: top;
+  }
+  to {
+    
+    background-position: bottom;
+  }
+}

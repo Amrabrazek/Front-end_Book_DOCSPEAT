@@ -1,0 +1,27 @@
+.register {
+  height: 100vh;
+  background-image: url("../assets/images/BG.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  animation: animateLoginBG alternate infinite 5s;
+}
+.register > h1 {
+    color: var(--dark-orange);
+}
+
+.register-form {
+  width: 50rem;
+  border-radius: 1em;
+  color: wheat;
+}
+
+@keyframes animateLoginBG {
+  from {
+
+    background-position: top;
+  }
+  to {
+    
+    background-position: bottom;
+  }
+}
