@@ -4,15 +4,9 @@ import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import { UserContext,  AuthContext} from '../context'
 import './mynav.css';
+import axios from 'axios';
 
 export  function Mynav() {
-
-  // let [logouicon, SetLogouticon] = useState ({
-  //   show:false,
-  // })
-  // const {authUser,setAuthUser} = useContext(AuthContext);
-  // const value = useContext(UserContext)
-  // let user = value
 
   const author_id =  useContext(UserContext) 
   console.log(author_id)
@@ -24,8 +18,16 @@ export  function Mynav() {
     navigate(`/admin/${user}/home`);
   }
 
-  let logout = () => {
-    // setAuthUser({})
+  let logout = () => {  
+    axios
+          .post(`http://127.0.0.1:8000/api/dj-rest-auth/logout/`)
+          .then((response) => {
+              console.log("done logout!");
+            })
+          .catch(err => {
+              console.log(err.response.data)
+            });
+
     navigate(`/login`)
   }
 

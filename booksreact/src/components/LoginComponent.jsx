@@ -133,7 +133,7 @@ export function LoginComponent() {
             onBlur={validation}
             type="email"
             placeholder="Enter email"
-            name="email"
+            name="username"
             className={`${error.email ? "border border-3 border-danger" : ""}`}
             required
           />
