@@ -28,8 +28,9 @@ export function Home() {
 return (
     <div>
 
-        <Slider  ></Slider>
+        <Slider></Slider>
         <h1>Book</h1>
+        {/* <Bookscards></Bookscards> */}
         <PostLoading isLoading={appState.loading} home={appState.home} />
     </div>
 );

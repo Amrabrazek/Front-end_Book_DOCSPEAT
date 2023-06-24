@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import { UserContext, ProductsContext } from '../context'
-import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import axios from 'axios';
 import './profiledetails.css';
@@ -9,22 +8,30 @@ import './profiledetails.css';
 export function Profiledetails() {
 
     const author_id =  useContext(UserContext) 
-    console.log(author_id)
-    
-    // const { author_id } = useParams();
-
     const [author, setAuthor] = useState({});
 
-    useEffect(() => {
-    // getttin the author info 
-    axios
-        .get(`http://127.0.0.1:8000/api/author/${author_id}`)
+
+useEffect(() => {
+    if(localStorage.getItem('access_token') === null){                   
+        window.location.href = '/login'
+    }
+    else{
+        axios
+        .get(`http://127.0.0.1:8000/api/user/${author_id}`,
+        {
+            headers: 
+            {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            }
+        })
         .then(res => {
-        setAuthor(res.data);
-    })
+            setAuthor(res.data);
+        })
         .catch(err => {
-        console.log(err);
-    });
+            console.log(err);
+        });
+    };
 }, []);
 
   // console.log(author)

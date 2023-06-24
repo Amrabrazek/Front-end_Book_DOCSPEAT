@@ -8,35 +8,39 @@ import './slider.css';
 export  function Slider() {
 
 const author_id =  useContext(UserContext) 
-const [books, setBooks] = useState([]);
 
+const [books, setBooks] = useState([]);
+let apiUrl = 'http://127.0.0.1:8000/api/book'
 
 useEffect(() => {
-  // getting the author books
-  axios
-    .get(`http://127.0.0.1:8000/api/book`,
-              {
-                headers: 
-                {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-                }
-              })
-    .then(res => {
-      const filteredBooks = res.data.filter(book => book.author == author_id && book.book_cover );
-      setBooks(filteredBooks);
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  if(localStorage.getItem('access_token') === null){                   
+      window.location.href = '/login'
+  }
+  else{
+      axios
+      .get(apiUrl,
+        {
+          headers: 
+          {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+          }
+        })
+      .then(res => {
+        const filteredBooks = res.data.filter(book => book.author == author_id && book.book_cover);
+        setBooks(filteredBooks);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 }, []);
-
 
 
   return (
     <div>
-      {books.length === 0 ? 
-      (<div>no books</div>) : 
+      {books.length == 0 ? 
+      (<div></div>) : 
       (<Carousel>
         {books.map((book) => {
           return <Carousel.Item className='carousel-itemx' key={book.id}  interval={2000}>

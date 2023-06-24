@@ -10,7 +10,6 @@ export function Profile() {
   
   return (
     <div>
-      <Mynav></Mynav>
       <Profiledetails  ></Profiledetails>
       <h1 className='m-5'>Book</h1>
       <Bookscards  ></Bookscards>

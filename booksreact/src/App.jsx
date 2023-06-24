@@ -6,12 +6,10 @@ import { Registeration } from './pages/Registeration';
 import { Loginpage } from './pages/Loginpage';
 import { NotFound } from './pages/Notfound';
 import { Profile } from './pages/author/Profile';
-import { Home } from './pages/author/Home';
-import { Addbookpage } from './pages/author/Addbookpage';
+import { Homeandothers } from './pages/Homeandothers';
 
-import {Login} from "./components/login";
+import { Addbookpage } from './pages/author/Addbookpage';
 import {Mynav} from "./components/Mynav";
-import {Navigation} from './components/navigation';
 // import {Home} from './components/home';
 import {Logout} from './components/logout';
 
@@ -65,17 +63,18 @@ function App() {
       <UserContext.Provider value={user_id}>
       {isAuth ? <Mynav></Mynav> :  null}
         <Routes>
-          <Route path="/" element={<Home/>}/>
           <Route path="/register" element={<Registeration />} />
           <Route path="/login" element={<Loginpage/>}/>
+          <Route path="/" element={<Homeandothers/>}/>
+
           <Route path="/logout" element={<Logout/>}/>
+          <Route path="/author/profile/:author_id" element={<Profile />} />
           
 
           {/* author */}
           {/* <Route path="register" element={<Registeration />} />
           <Route path="login" element={<Loginpage />} />
 
-          <Route path="author/profile/:author_id" element={<Profile />} />
           <Route path="author/home/:author_id" element={<Home />} />
           <Route path="author/addbook" element={<Addbookpage />} />
 
