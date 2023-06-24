@@ -6,12 +6,13 @@ import { Registeration } from './pages/Registeration';
 import { Loginpage } from './pages/Loginpage';
 import { NotFound } from './pages/Notfound';
 import { Profile } from './pages/author/Profile';
-// import { Home } from './pages/author/Home';
+import { Home } from './pages/author/Home';
 import { Addbookpage } from './pages/author/Addbookpage';
 
 import {Login} from "./components/login";
+import {Mynav} from "./components/Mynav";
 import {Navigation} from './components/navigation';
-import {Home} from './components/home';
+// import {Home} from './components/home';
 import {Logout} from './components/logout';
 
 import {
@@ -22,22 +23,52 @@ import {
 
 function App() {
 
-  const [authUser, setAuthUser] = useState({});
+  const [userId, setUserId] = useState('');
+  useEffect(() => {
+      if(localStorage.getItem('access_token') === null){                   
+          console.log("not auth yet")
+      }
+      else{
+      (async () => {
+          try {
+          const {data} = await axios.get(   
+                          'http://localhost:8000/api/home/', {
+                          headers: 
+                          {
+                              'Content-Type': 'application/json',
+                              'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                          }}
+                          );
+            setUserId(data.msg);
+          console.log("inhome")
+          console.log(data)
+      } catch (e) {
+          console.log(e)
+          console.log('not auth')
+      }
+      })()};
+  }, []);
 
+  const [isAuth, setIsAuth] = useState(false);
+  // console.log(localStorage.getItem('access_token') !== "")
+  useEffect(() => {
+    if (localStorage.getItem('access_token') !== null) {
+        setIsAuth(true); 
+      }
+    }, [isAuth]);
   // setAuthUser({id:1})
 
-  const user_id = 2
-
+  const user_id = userId
 
   return (
     <div className="App">
       <UserContext.Provider value={user_id}>
-      <Navigation></Navigation>
+      {isAuth ? <Mynav></Mynav> :  null}
         <Routes>
           <Route path="/" element={<Home/>}/>
-          <Route path="/login" element={<Login/>}/>
+          <Route path="/register" element={<Registeration />} />
+          <Route path="/login" element={<Loginpage/>}/>
           <Route path="/logout" element={<Logout/>}/>
-
           
 
           {/* author */}

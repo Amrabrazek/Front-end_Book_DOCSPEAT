@@ -10,134 +10,103 @@ export function LoginComponent() {
     const navigate = useNavigate();
     // const { authUser, setAuthUser } = useContext(AuthContext);
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-  // create state for formValues to watch changes
-    const [formValues, setFormValues] = useState({
-        username: "",
-        password: "",
-    });
-
-  // create state for formErrors
     const [error, setError] = useState({
-        submit: false,
-        username: false,
-        password: false,
+      submit: false,
     });
 
-  // handle the input fields and change the fromValues according to current input
-    const inputHandler = (e) => {
-        setFormValues({
-        ...formValues,
-        [e.target.name]: e.target.value,
-        });
-        console.log(formValues)
-    };
-
-
-  //validate the user input when leave the input field
-  //set the errors
-    const validation = (e) => {
-    const regex = {
-        username: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[\w]{2,3}$/g,
-        password:
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-    };
-    const name = e.target.name;
-    const value = formValues[name];
-    const check = regex[e.target.name].test(value);
-
-    setError({
-        ...error,
-        [e.target.name]: false,
-    });
-
-    if (!check) {
-        setError({
-        ...error,
-        [e.target.name]: true,
-        });
-    }
-    };
-
-    //handle the form submit, then login if valid
-    const submitHandler = async (e) => {
+     // Create the submit method.
+    const submitx = async e => {
         e.preventDefault();
-      
-        axios
-          .post(`http://127.0.0.1:8000/api/dj-rest-auth/login/`, formValues)
-          .then((response) => {
-              console.log("done!");
-              navigate(`/home`);
-            })
-          .catch(err => {
-              console.log(err.response.data)
-              if (err.response.data.email){
-                setError({
-                  ...error,
-                  submit: true,
-                  submitText: "Email already registered",
-                });
-              }
-            });
+        const user = {
+                email: email,
+                password: password
+                };
+        // console.log("0000000000000000000000")
+        // console.log(user)
 
-        // try {
-        //   let user = await authApi.getUser(
-        //     formValues.email.toLowerCase(),
-        //     formValues.userType,
-        //   );
+        // Create the POST requuest
+        try{
+          const { data } = await axios.post('http://localhost:8000/token/', user,
+          {
+              headers: { 'Content-Type': 'application/json' },
+              withCredentials: true
+          }
+          );
+          console.log(data)
+
+                   // Initialize the access & refresh token in localstorage.      
+          localStorage.clear();
+          localStorage.setItem('access_token', data.access);
+          localStorage.setItem('refresh_token', data.refresh);
+          axios.defaults.headers.common['Authorization'] = 
+                                          `Bearer ${data['access']}`;
+          window.location.href = '/'
+          } 
+        catch (err) {
+          console.log(err);
+          setError({
+            submit: true,
+          });
+        }
+        
+
+    }
+
+
+    const submit = async e => {
+      e.preventDefault();
+      const user = {
+        email: email,
+        password: password
+      };
     
-        //   let resObj1 = loginJS.checkDataIsWrongBeforeLogin(user, formValues);
+      try {
+        const { data } = await axios.post('http://localhost:8000/token/', user, {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true
+        });
     
-        //   let resObj2 = await loginJS.checkIfUserIsActive(user);
+        // Store the access and refresh tokens in local storage
+        localStorage.clear();
+        localStorage.setItem('access_token', data.access);
+        localStorage.setItem('refresh_token', data.refresh);
     
-        //   if (resObj1.success == "false" || resObj2.success == "false") {
-        //     let msg = resObj1.success == "false" ? resObj1.msg : resObj2.msg;
-        //     setError({
-        //       ...error,
-        //       submit: true,
-        //       submitText: msg,
-        //     });
-        //     setTimeout(() => {
-        //       setError({
-        //         ...error,
-        //         submit: false,
-        //         submitText: "",
-        //       });
-        //     }, 1000);
-        //     return;
-        //   }
+        // Set the Authorization header for all subsequent requests
+        axios.defaults.headers.common['Authorization'] = `Bearer ${data.access}`;
     
-        //   setAuthUser({ ...user });
-    
-        //   user.type === "admin"
-        //     ? navigator(`/admin/${user.userName}/home`)
-        //     : navigator("/");
-        // } catch (e) {
-        //   return;
-        // }
-        };
-    
+        // Redirect to the home page
+        window.location.href = '/';
+      } catch (err) {
+        console.log(err);
+        setError({
+          submit: true,
+        });
+      }
+    };
+
+
 
   return (
     <div className="login d-flex flex-column justify-content-center align-items-center">
-      <h1 className="text-dark">EHCO</h1>
+      <h1 className="text-dark">BOOKS</h1>
       <Form
-        onSubmit={submitHandler}
+        onSubmit={submit}
         className="login-form bg-dark p-5 d-flex flex-column"
       >
         <Form.Group className="mb-3" controlId="formBasicEmail">
           {/* Email Field */}
           <Form.Label>Email address</Form.Label>
           <Form.Control
-            onChange={inputHandler}
-            onBlur={validation}
+            onChange={e => {setEmail(e.target.value)}}
             type="email"
             placeholder="Enter email"
             name="username"
             className={`${error.email ? "border border-3 border-danger" : ""}`}
             required
           />
-
           {error.email && (
             <p className="text-danger mx-2 my-2">Not a valid email</p>
           )}
@@ -147,8 +116,7 @@ export function LoginComponent() {
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
-            onChange={inputHandler}
-            onBlur={validation}
+            onChange={e => {setPassword(e.target.value)}}
             type="password"
             placeholder="Password"
             name="password"
@@ -158,43 +126,8 @@ export function LoginComponent() {
             required
           />
           {error.password && (
-            <ul className="password-list text-danger m-0 p-2">
-                <li>passwort length at least 8</li>
-                <li>at least one uppercase</li>
-                <li>at least one lowercase</li>
-                <li>at least one special character</li>
-            </ul>
+            <dir>incorrect password</dir>
             )}
-        </Form.Group>
-
-        {/* User Type Radio Buttons */}
-        <Form.Group
-          className="mb-3 d-flex justify-content-around"
-          controlId="formBasicCheckbox"
-        >
-          <label htmlFor="admin">
-            <input
-              type="radio"
-              name="userType"
-              id="admin"
-              value="admin"
-              onClick={inputHandler}
-              required
-            />{" "}
-            Admin
-          </label>
-          <br></br>
-          <label htmlFor="customer">
-            <input
-              type="radio"
-              name="userType"
-              id="customer"
-              value="customer"
-              onClick={inputHandler}
-              required
-            />{" "}
-            Customer
-          </label>
         </Form.Group>
 
         {/* Login Button */}
@@ -220,6 +153,12 @@ export function LoginComponent() {
             </span>
           </p>
         </div>
+
+        {error.submit && (
+          <p className="text-danger align-self-center py-2">
+            Invalid Compination !!
+          </p>
+        )}
       </Form>
     </div>
   );

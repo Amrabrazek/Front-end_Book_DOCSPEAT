@@ -12,13 +12,18 @@ export const Home = () => {
         (async () => {
             try {
             const {data} = await axios.get(   
-                            'http://localhost:8000/home/', {
-                            headers: {
-                                'Content-Type': 'application/json'
+                            'http://localhost:8000/api/home/', {
+                            headers: 
+                            {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
                             }}
                             );
-            setMessage(data.message);
+            setMessage(data.msg);
+            console.log("inhome")
+            console.log(data)
         } catch (e) {
+            console.log(e)
             console.log('not auth')
         }
         })()};

@@ -27,7 +27,6 @@ export function Home() {
 
 return (
     <div>
-        <Mynav></Mynav>
 
         <Slider  ></Slider>
         <h1>Book</h1>

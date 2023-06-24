@@ -10,12 +10,18 @@ export  function Slider() {
 const author_id =  useContext(UserContext) 
 const [books, setBooks] = useState([]);
 
-let selectedBooks = []
 
 useEffect(() => {
   // getting the author books
   axios
-    .get(`http://127.0.0.1:8000/api/book`)
+    .get(`http://127.0.0.1:8000/api/book`,
+              {
+                headers: 
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                }
+              })
     .then(res => {
       const filteredBooks = res.data.filter(book => book.author == author_id && book.book_cover );
       setBooks(filteredBooks);
