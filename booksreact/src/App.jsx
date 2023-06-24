@@ -6,9 +6,13 @@ import { Registeration } from './pages/Registeration';
 import { Loginpage } from './pages/Loginpage';
 import { NotFound } from './pages/Notfound';
 import { Profile } from './pages/author/Profile';
-import { Home } from './pages/author/Home';
+// import { Home } from './pages/author/Home';
 import { Addbookpage } from './pages/author/Addbookpage';
 
+import {Login} from "./components/login";
+import {Navigation} from './components/navigation';
+import {Home} from './components/home';
+import {Logout} from './components/logout';
 
 import {
   UserContext,
@@ -25,29 +29,26 @@ function App() {
   const user_id = 2
 
 
-
-
-
   return (
     <div className="App">
       <UserContext.Provider value={user_id}>
+      <Navigation></Navigation>
         <Routes>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/logout" element={<Logout/>}/>
 
-          {/* Auth */}
-          {/* <Route path="login" element={<LoginPage></LoginPage>}></Route>
-          <Route path="register" element={<RegisterPage></RegisterPage>}></Route>
-          <Route path="activation/:type/:uuid" element={<ActivatinPage></ActivatinPage>}></Route>
-           */}
+          
 
           {/* author */}
-          <Route path="register" element={<Registeration />} />
+          {/* <Route path="register" element={<Registeration />} />
           <Route path="login" element={<Loginpage />} />
 
           <Route path="author/profile/:author_id" element={<Profile />} />
           <Route path="author/home/:author_id" element={<Home />} />
           <Route path="author/addbook" element={<Addbookpage />} />
 
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} /> */}
 
         </Routes>
       </UserContext.Provider>
