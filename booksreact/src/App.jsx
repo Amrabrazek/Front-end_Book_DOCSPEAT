@@ -9,7 +9,10 @@ import { Profile } from './pages/author/Profile';
 import { Homeandothers } from './pages/Homeandothers';
 
 import { Addbookpage } from './pages/author/Addbookpage';
+import { Editbookpage } from './pages/author/Editbookpage';
+
 import {Mynav} from "./components/Mynav";
+// import TouchBallLoading from './components/TouchBallLoading';
 // import {Home} from './components/home';
 import {Logout} from './components/logout';
 
@@ -51,6 +54,8 @@ function App() {
           console.log('not auth')
       }
       })()};
+
+
   }, []);
 
   useEffect(() => {
@@ -62,9 +67,9 @@ function App() {
   // setAuthUser({id:1})
 
 
-  // if (isLoading) {
-  //   return <div className="d-flex jsutify-content-center m-5 align-items-center"><h1>Loading...</h1></div>;
-  // }
+  if (isLoading) {
+    return <div className="d-flex jsutify-content-center m-5 align-items-center"><h1>   Loading...</h1></div>;
+  }
 
   const user_id = userId
 
@@ -77,19 +82,19 @@ function App() {
             <Route path="/register" element={<Registeration />} />
             <Route path="/login" element={<Loginpage/>}/>
             <Route path="/" element={<Homeandothers/>}/>
-
             <Route path="/logout" element={<Logout/>}/>
             <Route path="/profile/:profile_id" element={<Profile />} />
+            <Route path="/addbook" element={<Addbookpage />} />
+            <Route path="/editbook/:book_id" element={<Editbookpage />} />
             
+            <Route path="*" element={<NotFound />} />
 
             {/* author */}
             {/* <Route path="register" element={<Registeration />} />
             <Route path="login" element={<Loginpage />} />
 
-            <Route path="author/home/:author_id" element={<Home />} />
-            <Route path="author/addbook" element={<Addbookpage />} />
+            <Route path="author/home/:author_id" element={<Home />} /> */}
 
-            <Route path="*" element={<NotFound />} /> */}
 
           </Routes>
       </TypeContext.Provider>

@@ -9,6 +9,7 @@ import axios from 'axios';
 export  function Mynav() {
 
   const author_id =  useContext(UserContext) 
+  let user = author_id
   const type =  useContext(TypeContext) 
   // console.log(author_id)
 
@@ -24,7 +25,7 @@ export  function Mynav() {
     }, [isAuth]);
 
 
-  let user = author_id
+
 
   let navigate = useNavigate();
   function goHome() {
@@ -63,20 +64,20 @@ export  function Mynav() {
 
         <div className="cart">
           
-          <NavLink className="nav-link" to={`/author/home/${user}`}>
+          <NavLink className="nav-link" to={`/`}>
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
               <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z"/>
             </svg>
           </NavLink >
 
 
-          <NavLink className="nav-link" to={`/author/addbook`}>
+          <NavLink className="nav-link" to={`/addbook`}>
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
               <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
             </svg>
           </NavLink >
 
-            <NavLink className="nav-link" to={`/author/profile/${user}`}>
+            <NavLink className="nav-link" to={`/profile/${user}`}>
               <div className='d-flex dropdown' >
                 <strong className='m-1  fs-5'>{user}</strong>
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">

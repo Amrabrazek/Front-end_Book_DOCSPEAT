@@ -1,0 +1,17 @@
+1- create react project
+    RUN => npx create-react-app 
+
+2- move to the directory of the projet and start the project 
+    RUN => npm start
+
+3- importing installation 
+
+    bootstrap => npm install bootstrap 
+    react-bootstrap => npm install react-bootstrap
+    bootstrap-icons => npm install bootstrap-icons
+    react-icons => npm install react-icons
+    axios => npm install axios 
+    uuid => pip install uuid
+
+3- ROuting 
+    npm install react-router-dom

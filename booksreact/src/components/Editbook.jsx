@@ -5,52 +5,46 @@ import { UserContext } from "../context";
 import { useNavigate, useParams } from "react-router-dom";
 
 
-export function Addbook() { 
+export function Editbook(prop) { 
+
+    let {book} = prop
     const author_id =  useContext(UserContext)[0]
-    const currentDate = new Date();
-    const isoDateString = currentDate.toISOString();
-    const formattedDate = isoDateString.substring(0, 10);
-    console.log(formattedDate)
-    let navigate = useNavigate();
-
-    let [formvalues, setFormvalues] = useState({
-        "title": "",
-        "summary": "",
-        "book_cover": null,
-        "author": author_id,
+    const [formValues, setFormValues] = useState({
+        "title": book.title,
+        "summary": book.summary,
     });
-
+    const [submitValues, setSubmitValues] = useState({
+        "author": author_id,
+    })
     const [errors, setErrors] = useState({
         title: false,
     });
-        
+
+    let navigate = useNavigate();
 
     const handleChange = (e) => {
         if (e.target.name == "book_cover") {
             console.log(e.target.name)
             console.log(e.target.files[0])
-            setFormvalues({
-                ...formvalues,
+            setSubmitValues({
+                ...submitValues,
                 [e.target.name]: e.target.files[0],
-    
             });
         } 
         else {
-        setFormvalues({
-            "author": author_id[0],
-            ...formvalues,
+            setSubmitValues({
+            ...submitValues,
             [e.target.name]: e.target.value,
         });
         }
     }
 
-    console.log(formvalues)
+    console.log(submitValues)
     
     let formOperation = (e) => {
         e.preventDefault();
-            console.log(formvalues)
             axios
-            .post(`http://127.0.0.1:8000/book/create`, formvalues,
+            .patch(`http://127.0.0.1:8000/book/update/${book.id}`, submitValues,
             {
                 headers: 
                 {
@@ -62,7 +56,6 @@ export function Addbook() {
                 console.log("done!");
                 console.log(response)
                 navigate("/")
-
             })
             .catch(err => {
                 console.log("error")
@@ -71,11 +64,10 @@ export function Addbook() {
         };
 
     let clearformvalues = () => {
-        setFormvalues({
+        setFormValues({
             "title": "",
             "summary": "",
             "author": author_id,
-            "publication_date": formattedDate,
             "book_cover": null,
         });
     };
@@ -94,7 +86,7 @@ export function Addbook() {
                     name="title"
                     placeholder="Enter title"
                     required
-                    defaultValue={formvalues.title}
+                    defaultValue={formValues.title}
                     onChange={handleChange}
                 />
                 {errors.title && (
@@ -112,7 +104,7 @@ export function Addbook() {
                     name="summary"
                     rows={2}
                     placeholder="summary"
-                    defaultValue={formvalues.summary}
+                    defaultValue={formValues.summary}
                     onChange={handleChange}
                 />
                 </Form.Group>
@@ -127,7 +119,6 @@ export function Addbook() {
                         name="book_cover"
                         placeholder="Book Cover"
                         accept="image/png, image/gif, image/jpeg"
-                        defaultValue={formvalues.book_cover}
                         onChange={handleChange}
                     />
                     </div>
@@ -138,7 +129,7 @@ export function Addbook() {
                     
                     <div>
                         <Button variant="success" type="submit">
-                            Add Book
+                            Edit Book
                         </Button>
                     </div>
 

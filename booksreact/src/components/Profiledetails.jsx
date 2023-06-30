@@ -1,7 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
-import { UserContext, ProductsContext } from '../context'
+import React from "react";
 import { Container, Row, Col, Image } from 'react-bootstrap';
-import axios from 'axios';
 import './profiledetails.css';
 
 
@@ -19,14 +17,25 @@ export function Profiledetails(prop) {
             </Col>
         </Row>
         <Row>
-
-            <Col md={5}>
-            <div className="profile-picture">
-                <Image src={`${author.profile_picture}`} alt="Profile Picture" fluid />
-            </div>
+            <Col md={12}>
+                <Image
+                    src={`${author.profile_picture}`}
+                    alt="Profile Picture"
+                    style={{
+                        borderRadius: '50%',
+                        height: '300px',
+                        width: '300px',
+                        objectFit: 'cover',
+                        margin: "30px"
+                    }}
+                />
             </Col>
+        </Row>
+        <Row >
+            <Col md={2}>
 
-            <Col md={7}>
+            </Col>
+            <Col md={8}>
                 <h1 className="name">{author.title}</h1>
                 <p className="bio"> {author.bio} </p>
             </Col>
