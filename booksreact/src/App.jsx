@@ -10,6 +10,7 @@ import { Homeandothers } from './pages/Homeandothers';
 
 import { Addbookpage } from './pages/author/Addbookpage';
 import { Editbookpage } from './pages/author/Editbookpage';
+import { BookViewPage } from './pages/author/BookViewPage';
 
 import {Mynav} from "./components/Mynav";
 // import TouchBallLoading from './components/TouchBallLoading';
@@ -84,8 +85,9 @@ function App() {
             <Route path="/" element={<Homeandothers/>}/>
             <Route path="/logout" element={<Logout/>}/>
             <Route path="/profile/:profile_id" element={<Profile />} />
-            <Route path="/addbook" element={<Addbookpage />} />
-            <Route path="/editbook/:book_id" element={<Editbookpage />} />
+            <Route path="/book/add" element={<Addbookpage />} />
+            <Route path="/book/edit/:book_id" element={<Editbookpage />} />
+            <Route path="/book/view/:book_id" element={<BookViewPage />} />
             
             <Route path="*" element={<NotFound />} />
 
