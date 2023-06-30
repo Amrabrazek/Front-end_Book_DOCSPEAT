@@ -83,7 +83,7 @@ export function BookView(prop) {
                                 Edit Book
                             </Button>
 
-                            <Button variant="secondary" onClick={() => {navigate(`/book/view/${book.id}`)}} >
+                            <Button variant="secondary" onClick={() => {navigate(`/page/view/${book.id}`)}} >
                                 Check Pages
                             </Button>
 
@@ -91,17 +91,15 @@ export function BookView(prop) {
                                 Delete
                             </Button>
 
-
-
                     </div> 
-                : <div>
+                    : <div>
                         <NavLink className="nav-link" to={`/editbook/${book.id}`}>
                             <Button variant="success" >
                                 Start Reading
                             </Button>
                         </NavLink >
                     
-                </div>}
+                    </div>}
                 
             </Col>
         </Row> :null}

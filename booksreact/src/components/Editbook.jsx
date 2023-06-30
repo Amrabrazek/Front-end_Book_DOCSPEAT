@@ -2,13 +2,13 @@ import React, { useContext, useState, useEffect } from "react";
 import { Button, Form, NavLink } from "react-bootstrap";
 import axios from "axios";
 import { UserContext } from "../context";
-import { useNavigate, useParams } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 export function Editbook(prop) { 
 
     let {book} = prop
     const author_id =  useContext(UserContext)[0]
+    const DeleteAPIUrl = `http://127.0.0.1:8000/book/delete/${book.id}`
     const [formValues, setFormValues] = useState({
         "title": book.title,
         "summary": book.summary,
@@ -19,7 +19,6 @@ export function Editbook(prop) {
     const [errors, setErrors] = useState({
         title: false,
     });
-
     let navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -37,6 +36,25 @@ export function Editbook(prop) {
             [e.target.name]: e.target.value,
         });
         }
+    }
+
+    const deletebook = () =>{
+        axios
+        .delete(DeleteAPIUrl,
+            {
+            headers: 
+            {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            }
+            })
+        .then(res => {
+            console.log("deleted")
+            navigate('/')
+        })
+        .catch(err => {
+            console.log(err);
+        });
     }
 
     console.log(submitValues)
@@ -135,7 +153,13 @@ export function Editbook(prop) {
 
                     <div>
                         <Button variant="secondary" onClick={clearformvalues}>
-                        Clear Form
+                            Clear Form
+                        </Button>
+                    </div>
+
+                    <div>
+                        <Button variant="danger" onClick={deletebook}>
+                            Delete Book
                         </Button>
                     </div>
 
