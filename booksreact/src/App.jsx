@@ -15,15 +15,17 @@ import {Logout} from './components/logout';
 
 import {
   UserContext,
+  TypeContext
 } from './context';
-
-
 
 function App() {
 
   // getting authenticated used_id
+  const [isAuth, setIsAuth] = useState(false);
   const [userId, setUserId] = useState('');
-  
+  const [type, setType] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
       if(localStorage.getItem('access_token') === null){                   
           console.log("not auth yet")
@@ -40,6 +42,8 @@ function App() {
                           }}
                           );
             setUserId(data.msg);
+            setType(data.type);
+            setIsLoading(false);
           console.log("inhome")
           console.log(data)
       } catch (e) {
@@ -49,40 +53,46 @@ function App() {
       })()};
   }, []);
 
-  const [isAuth, setIsAuth] = useState(false);
-  // console.log(localStorage.getItem('access_token') !== "")
   useEffect(() => {
     if (localStorage.getItem('access_token') !== null) {
         setIsAuth(true); 
+        
       }
     }, [isAuth]);
   // setAuthUser({id:1})
+
+
+  // if (isLoading) {
+  //   return <div className="d-flex jsutify-content-center m-5 align-items-center"><h1>Loading...</h1></div>;
+  // }
 
   const user_id = userId
 
   return (
     <div className="App">
       <UserContext.Provider value={user_id}>
-      {isAuth ? <Mynav></Mynav> :  null}
-        <Routes>
-          <Route path="/register" element={<Registeration />} />
-          <Route path="/login" element={<Loginpage/>}/>
-          <Route path="/" element={<Homeandothers/>}/>
+      <TypeContext.Provider value={type}>
+          {isAuth ? <Mynav></Mynav> :  null}
+          <Routes>
+            <Route path="/register" element={<Registeration />} />
+            <Route path="/login" element={<Loginpage/>}/>
+            <Route path="/" element={<Homeandothers/>}/>
 
-          <Route path="/logout" element={<Logout/>}/>
-          <Route path="/author/profile/:author_id" element={<Profile />} />
-          
+            <Route path="/logout" element={<Logout/>}/>
+            <Route path="/profile/:profile_id" element={<Profile />} />
+            
 
-          {/* author */}
-          {/* <Route path="register" element={<Registeration />} />
-          <Route path="login" element={<Loginpage />} />
+            {/* author */}
+            {/* <Route path="register" element={<Registeration />} />
+            <Route path="login" element={<Loginpage />} />
 
-          <Route path="author/home/:author_id" element={<Home />} />
-          <Route path="author/addbook" element={<Addbookpage />} />
+            <Route path="author/home/:author_id" element={<Home />} />
+            <Route path="author/addbook" element={<Addbookpage />} />
 
-          <Route path="*" element={<NotFound />} /> */}
+            <Route path="*" element={<NotFound />} /> */}
 
-        </Routes>
+          </Routes>
+      </TypeContext.Provider>
       </UserContext.Provider>
     </div>
   );

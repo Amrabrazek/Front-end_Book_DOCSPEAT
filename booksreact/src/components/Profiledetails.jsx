@@ -5,34 +5,8 @@ import axios from 'axios';
 import './profiledetails.css';
 
 
-export function Profiledetails() {
-
-    const author_id =  useContext(UserContext) 
-    const [author, setAuthor] = useState({});
-
-
-useEffect(() => {
-    if(localStorage.getItem('access_token') === null){                   
-        window.location.href = '/login'
-    }
-    else{
-        axios
-        .get(`http://127.0.0.1:8000/api/user/${author_id}`,
-        {
-            headers: 
-            {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-            }
-        })
-        .then(res => {
-            setAuthor(res.data);
-        })
-        .catch(err => {
-            console.log(err);
-        });
-    };
-}, []);
+export function Profiledetails(prop) {
+    let {author} = prop
 
   // console.log(author)
 

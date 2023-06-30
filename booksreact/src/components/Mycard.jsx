@@ -6,11 +6,12 @@ export function Mycard(prop) {
 
     let navigate = useNavigate()
     let {book} = prop
+    // console.log(book)
     // console.log(product)
     return (
     <div className='m-2'> 
         <Card style={{ width: '18rem', height: "350px" }}>
-        <Card.Img style={{ height:"200px", objectFit: "contain"}} variant="top" src={`${book.book_cover}`} alt={`${book.title}`} />
+        <Card.Img style={{ height:"200px", objectFit: "contain"}} variant="top" src={`http://localhost:8000${book.book_cover}`} alt={`${book.title}`} />
         {/* <Card.Img style={{ height:"200px", objectFit: "contain"}} variant="top" src="./xyz.jpeg" alt={`${book.title}`} /> */}
         <Card.Body>
             <Card.Title className='text-center'>{book.title}</Card.Title>

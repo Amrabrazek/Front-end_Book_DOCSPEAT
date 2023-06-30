@@ -2,13 +2,14 @@ import React, {useContext, useState, useEffect} from 'react'
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
-import { UserContext,  AuthContext} from '../context'
+import { UserContext, TypeContext } from '../context'
 import './mynav.css';
 import axios from 'axios';
 
 export  function Mynav() {
 
   const author_id =  useContext(UserContext) 
+  const type =  useContext(TypeContext) 
   // console.log(author_id)
 
 
@@ -53,6 +54,13 @@ export  function Mynav() {
         <div className="navLogo" onClick={goHome}>
           Books
         </div>
+
+        { type=="author"? 
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+          <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+        </svg>:
+        null }
+
         <div className="cart">
           
           <NavLink className="nav-link" to={`/author/home/${user}`}>

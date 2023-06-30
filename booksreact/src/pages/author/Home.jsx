@@ -1,37 +1,56 @@
-import React, { useState, Component, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Bookscards } from '../../components/Bookscards';
 import { Slider } from '../../components/Slider';
-import { Mynav } from '../../components/Mynav';
-import PostLoadingComponent from '../../components/PostLoading'
-
+import { UserContext, TypeContext} from '../../context'
+import axios from "axios";
 export function Home() {
 
-  const PostLoading  = PostLoadingComponent(Bookscards)
-
-  const [appState, setAppState] = useState ({
-    loading:false,
-    home:null,
-  })
+  const user_id =  useContext(UserContext)[0]
+  // console.log(user_id)
+  const user_type =  useContext(TypeContext)[0]
+  // console.log(user_type)
+  const [isLoading, setIsLoading] = useState(true);
+  const [books, setBooks] = useState([]);
+  let apiUrl = `http://127.0.0.1:8000/book/authorbooks/${user_id}`
 
   useEffect(() => {
-		setAppState({ loading: true });
-		const apiUrl = `http://127.0.0.1:8000/api/book`;
-		fetch(apiUrl)
-			.then((data) => data.json())
-			.then((home) => {
-				setAppState({ loading: false, home: home });
-			});
-	}, [setAppState]);
+    if(localStorage.getItem('access_token') === null){                   
+        window.location.href = '/login'
+    }
+    else{
+        axios
+        .get(apiUrl,
+          {
+            headers: 
+            {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            }
+          })
+        .then(res => {
+          setBooks(res.data);
+          setIsLoading(false);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    };
+}, []);
 
-  // console.log(author)
+if (isLoading) {
+  return <div className="d-flex jsutify-content-center m-5 align-items-center"><h1>Loading.....</h1></div>;
+}
 
 return (
     <div>
-
-        <Slider></Slider>
-        <h1>Book</h1>
-        {/* <Bookscards></Bookscards> */}
-        <PostLoading isLoading={appState.loading} home={appState.home} />
+        {user_type=="author"? 
+        <div>
+            <Slider books={books} ></Slider>
+            <h1>Books</h1>
+            <Bookscards books={books}></Bookscards>
+        </div> 
+        : null }
+        
     </div>
 );
 }

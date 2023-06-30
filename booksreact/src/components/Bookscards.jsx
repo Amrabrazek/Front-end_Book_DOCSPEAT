@@ -5,37 +5,7 @@ import { Mycard } from './Mycard';
 
 
 export function Bookscards(prop) {
-  
-  const author_id =  useContext(UserContext) 
-  // console.log(author_id)
-  const [books, setBooks] = useState([]);
-  let apiUrl = 'http://127.0.0.1:8000/api/book'
-
-
-  useEffect(() => {
-      if(localStorage.getItem('access_token') === null){                   
-          window.location.href = '/login'
-      }
-      else{
-          axios
-          .get(apiUrl,
-            {
-              headers: 
-              {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-              }
-            })
-          .then(res => {
-            const filteredBooks = res.data.filter(book => book.author == author_id);
-            setBooks(filteredBooks);
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      };
-  }, []);
-
+  let {books} = prop
 
   return (
     

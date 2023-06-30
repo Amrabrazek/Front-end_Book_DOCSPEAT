@@ -52,7 +52,7 @@ export function Addbook() {
     let formOperation = (e) => {
         e.preventDefault();
             axios
-            .post(`http://127.0.0.1:8000/api/book/`, formvalues)
+            .post(`http://127.0.0.1:8000/book/add`, formvalues)
             .then((response) => {
                 console.log("done!");
                 navigate(`/author/home/${author_id}`);
