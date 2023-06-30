@@ -24,12 +24,8 @@ export function Loginpage() {
                 email: email,
                 password: password
                 };
-        // console.log("0000000000000000000000")
-        // console.log(user)
-
-        // Create the POST requuest
         try{
-          const { data } = await axios.post('http://localhost:8000/token/', user,
+          const { data } = await axios.post('http://localhost:8000/user/token/', user,
           {
               headers: { 'Content-Type': 'application/json' },
               withCredentials: true
@@ -60,9 +56,10 @@ export function Loginpage() {
         email: email,
         password: password
       };
+      console.log(user)
     
       try {
-        const { data } = await axios.post('http://localhost:8000/token/', user, {
+        const { data } = await axios.post('http://localhost:8000/user/token/', user, {
           headers: { 'Content-Type': 'application/json' },
           withCredentials: true
         });
@@ -74,12 +71,10 @@ export function Loginpage() {
     
         // Set the Authorization header for all subsequent requests
         axios.defaults.headers.common['Authorization'] = `Bearer ${data.access}`;
-        
-        
-
         // Redirect to the home page
-        window.location.href = '/reg';
+        window.location.href = '/';
       } catch (err) {
+        console.log("errrrrror")
         console.log(err);
         setError({
           submit: true,

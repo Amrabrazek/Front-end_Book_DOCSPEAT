@@ -10,39 +10,18 @@ import axios from 'axios';
 
 
 export function Registeration() {
-
-  const [users, setUsers] = useState({});
-
-  useEffect(() => {
-    // getttin the author info 
-    axios
-        .get(`http://127.0.0.1:8000/api/user`)
-        .then(res => {
-        setUsers(res.data);
-        console.log(users)
-    })
-        .catch(err => {
-        console.log(err);
-    });
-}, []);
-
   const navigate = useNavigate();
-
   //set the formValues state
-  const [formValues, setFormValues] = useState({
-    username: "",
-    email: "",
-    password1: "",
-    password2: ""
-});
+  let [isSuccessful, setIsSuccesfull] = useState(false);
+  const [formValues, setFormValues] = useState({});
 
   //set the error and validations state
   const [error, setError] = useState({
     submit: false,
     username: false,
     email: false,
-    password1: false,
-    password2: false,
+    password: false,
+    confirm_password: false,
   });
 
   // handle the input fields and change the fromValues according to current input
@@ -65,7 +44,7 @@ export function Registeration() {
     const regex = {
       email: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[\w]{2,3}$/g,
       username:/^[a-zA-Z0-9_-]{5,15}$/,
-      password1: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
     };
       const name = e.target.name;
       const value = formValues[name];
@@ -88,13 +67,13 @@ export function Registeration() {
   const passwordMatchHandler = (e) => {
     setError({
       ...error,
-      password2: false,
+      confirm_password: false,
     });
     
-    if (e.target.value != formValues.password1) {
+    if (e.target.value != formValues.password) {
       setError({
         ...error,
-        password2: true,
+        confirm_password: true,
       });
     }
   };
@@ -106,9 +85,11 @@ export function Registeration() {
     setError({ ...error,
             submit: false, 
             submitText: "" });
+
+    console.log(error)
     
     // check if there is any errors
-    if (error.password1 || error.password2 || error.email || error.username) {
+    if (error.password || error.confirm_password || error.email || error.username) {
 
       setError({
         ...error,
@@ -127,23 +108,17 @@ export function Registeration() {
     }
 
     axios
-      .post(`http://127.0.0.1:8000/api/dj-rest-auth/registration/`, formValues)
+      .post(`http://127.0.0.1:8000/user/register/`, formValues)
       .then((response) => 
       {
-          console.log("done!");
-          console.log(response);
-          if (!response.response)
-            navigate(`/login`);
-          else{
-            setError({
-              ...error,
-              submit: true,
-              submitText: "Email already registered",
-            });
-          }
+        setIsSuccesfull(true);
+        console.log(response);
+        setTimeout(() => {
+          navigate('/login');
+        }, 2000);
         })
       .catch(err => {
-          console.log(err)
+          console.log(err.response.data)
           if (err){
             setError({
               ...error,
@@ -152,7 +127,7 @@ export function Registeration() {
             });
           }
           
-    });
+      });
 
 
   };
@@ -166,6 +141,37 @@ export function Registeration() {
         onSubmit={submitHandler}
         className="register-form bg-dark p-5 d-flex flex-column"
       >
+
+        <div className="d-flex justify-content-between" >
+
+        {/* First_Name Field */}
+        <Form.Group className="mb-3 w-50 m-1" controlId="formBasicEmail">
+          <Form.Label>First name</Form.Label>
+          <Form.Control
+            onChange={inputHandler}
+            type="text"
+            placeholder="First name"
+            name="first_name"
+            className=""
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3 w-50 m-1" controlId="formBasicEmail">
+          <Form.Label>Last name</Form.Label>
+          <Form.Control
+            onChange={inputHandler}
+            type="text"
+            placeholder="Last name"
+            name="last_name"
+            className=""
+            required
+          />
+        </Form.Group>
+
+        </div>
+
+
         {/* Email Field */}
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
@@ -210,7 +216,7 @@ export function Registeration() {
             onBlur={validation}
             type="password"
             placeholder="Password"
-            name="password1"
+            name="password"
             className={`${error.password? "border border-3 border-danger": "" }`}
             required
           />
@@ -231,14 +237,44 @@ export function Registeration() {
             onChange={inputHandler}
             onBlur={passwordMatchHandler}
             type="password"
-            placeholder="Password"
-            name="password2"
-            className={`${error.confirmPassword? "border border-3 border-danger": "" }`}
+            placeholder="Confirm Password"
+            name="confirm_password"
+            className={`${error.confirm_password? "border border-3 border-danger": "" }`}
             required
           />
-          {error.confirmPassword && (
+          {error.confirm_password && (
             <p className="text-danger mx-2 my-2">Password Dosesn't match !!!</p>
           )}
+        </Form.Group>
+
+        {/* userType Field */}
+        <Form.Group
+          className="mb-3 d-flex justify-content-around"
+          controlId="formBasicCheckbox"
+        >
+          <label htmlFor="admin">
+            <input
+              type="radio"
+              name="usertype"
+              id="admin"
+              value="author"
+              onClick={inputHandler}
+              required
+            />{" "}
+            Author
+          </label>
+          <br></br>
+          <label htmlFor="customer">
+            <input
+              type="radio"
+              name="usertype"
+              id="customer"
+              value="reader"
+              onClick={inputHandler}
+              required
+            />{" "}
+            Reader
+          </label>
         </Form.Group>
 
         <Button
@@ -265,8 +301,23 @@ export function Registeration() {
           </p>
         )}
 
+        {isSuccessful && (
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginTop: '10px',
+                  color: '#5dd693',
+                  fontWeight: '900',
+                }}
+              >
+                Check your email for acctivation link
+              </div>
+          )}
 
       </Form>
+
+
     </div>
   );
 }

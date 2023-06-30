@@ -21,7 +21,9 @@ import {
 
 function App() {
 
+  // getting authenticated used_id
   const [userId, setUserId] = useState('');
+  
   useEffect(() => {
       if(localStorage.getItem('access_token') === null){                   
           console.log("not auth yet")
@@ -30,7 +32,7 @@ function App() {
       (async () => {
           try {
           const {data} = await axios.get(   
-                          'http://localhost:8000/api/home/', {
+                          'http://localhost:8000/user/home/', {
                           headers: 
                           {
                               'Content-Type': 'application/json',
