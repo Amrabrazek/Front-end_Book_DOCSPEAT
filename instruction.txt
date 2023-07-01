@@ -1,17 +1,12 @@
-1- create react project
-    RUN => npx create-react-app 
+1- move into the directory 
+    RUN => cd booksreact 
 
-2- move to the directory of the projet and start the project 
+2- install the required packages 
+    RUN => npm install
+
+3- run the serrver 
     RUN => npm start
 
-3- importing installation 
+4- go to  After running the backend 
 
-    bootstrap => npm install bootstrap 
-    react-bootstrap => npm install react-bootstrap
-    bootstrap-icons => npm install bootstrap-icons
-    react-icons => npm install react-icons
-    axios => npm install axios 
-    uuid => pip install uuid
-
-3- ROuting 
-    npm install react-router-dom
+http://localhost:3000/login
