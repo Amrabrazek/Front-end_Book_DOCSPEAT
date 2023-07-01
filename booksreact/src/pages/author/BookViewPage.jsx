@@ -6,7 +6,7 @@ import { UserContext} from '../../context'
 import axios from "axios";
 
 
-export function ViewbookPage() {
+export function BookViewPage() {
     const { book_id } = useParams();
     const user_id =  useContext(UserContext)[0]
     const [isLoading1, setIsLoading1] = useState(true);

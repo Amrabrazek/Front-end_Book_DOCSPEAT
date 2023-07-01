@@ -1,8 +1,21 @@
-import React from "react";
-import { Mynav } from '../../components/Mynav';
+import React, {useContext, useEffect} from "react";
 import { Addbook } from '../../components/Addbook';
+import { TypeContext} from '../../context'
+
 
 export function Addbookpage() { 
+    const user_type =  useContext(TypeContext)[0]
+
+    useEffect(() => {
+        if(localStorage.getItem('access_token') === null){                   
+            window.location.href = '/login'
+        }
+        else if(user_type !="author"){
+            window.location.href = '/'
+        }
+    }
+    , []);
+
     return (
     <div>
 

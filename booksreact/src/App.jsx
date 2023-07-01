@@ -10,10 +10,10 @@ import { Homeandothers } from './pages/Homeandothers';
 
 import { Addbookpage } from './pages/author/Addbookpage';
 import { Editbookpage } from './pages/author/Editbookpage';
-import { ViewbookPage } from './pages/author/ViewbookPage';
+import { BookViewPage } from './pages/author/BookViewPage';
 
 import { PageViewPage } from './pages/author/PageViewPage';
-
+import { PageEditPage } from './pages/author/PageEditPage';
 
 import {Mynav} from "./components/Mynav";
 // import TouchBallLoading from './components/TouchBallLoading';
@@ -85,18 +85,22 @@ function App() {
           <Routes>
             <Route path="/register" element={<Registeration />} />
             <Route path="/login" element={<Loginpage/>}/>
-            <Route path="/" element={<Homeandothers/>}/>
             <Route path="/logout" element={<Logout/>}/>
+
+            <Route path="/" element={<Homeandothers/>}/>
             <Route path="/profile/:profile_id" element={<Profile />} />
+
             <Route path="/book/add" element={<Addbookpage />} />
             <Route path="/book/edit/:book_id" element={<Editbookpage />} />
-            <Route path="/book/view/:book_id" element={<ViewbookPage />} />
+            <Route path="/book/view/:book_id" element={<BookViewPage />} />
 
 
+            <Route path="/page/edit/:page_id" element={<PageEditPage />} />
             <Route path="/page/view/:book_id" element={<PageViewPage />} />
+
             
 
-            PageViewPage
+            
             <Route path="*" element={<NotFound />} />
 
             {/* author */}

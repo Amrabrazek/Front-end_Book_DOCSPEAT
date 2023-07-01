@@ -1,17 +1,22 @@
 import { Button, NavLink } from "react-bootstrap";
 import React, { useState, useContext } from 'react';
-import "./pageview.css"
 import { Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import axios from "axios";
 import { TypeContext} from '../context'
+import axios from "axios";
+import "./pageview.css"
 
 
 function Pageview(props) {
     const { pages } = props;
     const user_type =  useContext(TypeContext)[0]
     const [currentPage, setCurrentPage] = useState(1);
+    const [submitValues, setSubmitValues] = useState({
+        "content":""
+    })
     let navigate = useNavigate()
+
+
     const handleNextPage = () => {
         setCurrentPage(currentPage + 2);
     };
@@ -20,13 +25,33 @@ function Pageview(props) {
         setCurrentPage(currentPage - 2);
     };
 
-    const deletepage = () =>{
-        console.log(pages.find(page => page.page_number == 1))
+    const clearpage = (page_id) =>{
+        
+        // console.log(page_id);
+
+
+        axios
+            .patch(`http://127.0.0.1:8000/page/update/${page_id}`, submitValues,
+            {
+                headers: 
+                {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                }
+            })
+            .then((response) => {
+                console.log("done!");
+                console.log(response)
+                window.location.reload()
+
+
+            })
+            .catch(err => {
+                console.log("error")
+                console.log(err);
+            });
     }
 
-    console.log(pages.find(page => page.page_number == 1).content)
-
-    // { pages.find(page => page.page_number === currentPage)? pages.find(page => page.pageNumber === currentPage).content: null }
 
     return (
 
@@ -45,11 +70,11 @@ function Pageview(props) {
                 
                 { user_type=='author'?
                     <div className='w-100 d-flex justify-content-around '>
-                        <Button variant="success" onClick={() => {navigate(`/page/edit/`)}} >
+                        <Button variant="success" onClick={() => {navigate(`/page/edit/${pages.find(page => page.page_number == currentPage).id}`)}} >
                             Edit Page
                         </Button>
 
-                        <Button variant="danger" onClick={deletepage} >
+                        <Button variant="danger" onClick={()=> {clearpage(`${pages.find(page => page.page_number == (currentPage)).id}`)}}>
                             Delete
                         </Button>
                     </div> 
@@ -72,11 +97,11 @@ function Pageview(props) {
 
                 { user_type=='author'?
                     <div className='w-100 d-flex justify-content-around '>
-                        <Button variant="success" onClick={() => {navigate(`/page/edit/`)}} >
+                        <Button variant="success" onClick={() => {navigate(`/page/edit/${pages.find(page => page.page_number == (currentPage+1)).id}`)}} >
                             Edit Page
                         </Button>
 
-                        <Button variant="danger" onClick={deletepage} >
+                        <Button variant="danger" onClick={()=> {clearpage(`${pages.find(page => page.page_number == (currentPage+1)).id}`)}} >
                             Delete
                         </Button>
                     </div> 

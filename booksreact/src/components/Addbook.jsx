@@ -110,7 +110,7 @@ export function Addbook() {
                 <Form.Control
                     as="textarea"
                     name="summary"
-                    rows={2}
+                    rows={4}
                     placeholder="summary"
                     defaultValue={formvalues.summary}
                     onChange={handleChange}

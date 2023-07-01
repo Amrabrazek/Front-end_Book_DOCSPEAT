@@ -1,21 +1,24 @@
 import React, { useState, useEffect, useContext } from 'react';
-
-import { Editbook } from '../../components/Editbook';
+import { Editpage } from '../../components/Editpage';
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { TypeContext} from '../../context'
 
 
+export function PageEditPage() { 
 
-export function Editbookpage() { 
-
-    let { book_id } = useParams();
+    let { page_id } = useParams();
     const [isLoading, setIsLoading] = useState(true);
-    const [book, setBook] = useState([]);
-    let apiUrl = `http://127.0.0.1:8000/book/${book_id}`
+    const [page, setPage] = useState([]);
+    const user_type =  useContext(TypeContext)[0]
+    let apiUrl = `http://127.0.0.1:8000/page/${page_id}`
 
     useEffect(() => {
         if(localStorage.getItem('access_token') === null){                   
             window.location.href = '/login'
+        }
+        else if(user_type !="author"){
+            window.location.href = '/'
         }
         else{
         axios
@@ -29,7 +32,7 @@ export function Editbookpage() {
         })
         .then(res => {
             console.log(res.data)
-            setBook(res.data);
+            setPage(res.data);
             setIsLoading(false);
         })
         .catch(err => {
@@ -43,8 +46,10 @@ export function Editbookpage() {
 
     return (
     <div>
-        <div><h1>Edit Book</h1></div>
-        <Editbook book={book}></Editbook>
+        <div><h1>Edit Page</h1></div>
+        <div><h1>{page.book.title}</h1></div>
+        <div><h1>page: {page.page_number}</h1></div>
+        <Editpage page={page}></Editpage>
     </div>
     )
 }
