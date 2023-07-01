@@ -1,12 +1,9 @@
-import './App.css';
 import React, { useState, Component, useEffect } from 'react';
 import axios from 'axios';
 import { Route, Routes } from 'react-router-dom';
 import { Registeration } from './pages/Registeration';
 import { Loginpage } from './pages/Loginpage';
-import { NotFound } from './pages/Notfound';
 import { Profile } from './pages/Profile';
-import { Homeandothers } from './pages/Homeandothers';
 import { Home } from './pages/Home';
 
 import { Addbookpage } from './pages/Addbookpage';
@@ -20,8 +17,9 @@ import { ProfileEditPage } from './pages/ProfileEditPage';
 
 import { ReaderBooksPage } from './pages/ReaderBooksPage';
 
-
 import {Mynav} from "./components/Mynav";
+
+import { NotFound } from './pages/Notfound';
 
 import {
   UserContext,
@@ -98,7 +96,6 @@ function App() {
             <Route path="/book/edit/:book_id" element={<Editbookpage />} />
             <Route path="/book/view/:book_id" element={<BookViewPage />} />
 
-
             <Route path="/page/edit/:page_id" element={<PageEditPage />} />
             <Route path="/page/view/:book_id" element={<PageViewPage />} />
 
@@ -106,18 +103,7 @@ function App() {
 
             <Route path="/myreadings" element={<ReaderBooksPage />} />
 
-
-            
-
-            
             <Route path="*" element={<NotFound />} />
-
-            {/* author */}
-            {/* <Route path="register" element={<Registeration />} />
-            <Route path="login" element={<Loginpage />} />
-
-            <Route path="author/home/:author_id" element={<Home />} /> */}
-
 
           </Routes>
       </TypeContext.Provider>
