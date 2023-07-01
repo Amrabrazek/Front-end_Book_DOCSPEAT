@@ -1,6 +1,5 @@
-import axios from "axios";
-import { UserContext } from '../context'
-import React, { useEffect, useState, useContext } from "react";
+
+import React  from "react";
 import { Mycard } from './Mycard';
 
 

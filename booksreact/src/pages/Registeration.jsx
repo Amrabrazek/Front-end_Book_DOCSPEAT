@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
-// import { authApi } from "../../api/authApi";
 import "./registeration.css";
-// import emailjs from "@emailjs/browser";
 import { v4 as uuidv4 } from "uuid";
 import axios from 'axios';
 
@@ -111,6 +109,7 @@ export function Registeration() {
       .post(`http://127.0.0.1:8000/user/register/`, formValues)
       .then((response) => 
       {
+        console.log("iamhereeeeeeeeeeeeeeeeeeeeee")
         setIsSuccesfull(true);
         console.log(response);
         setTimeout(() => {

@@ -2,13 +2,12 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import Pageview  from '../../components/Pageview';
 import { Addpage }  from '../../components/Addpage';
-import { UserContext, TypeContext } from '../../context'
+import {  TypeContext } from '../../context'
 import axios from "axios";
 
 
 export function PageViewPage() {
     const { book_id } = useParams();
-    const user_id =  useContext(UserContext)[0]
     const usertype =  useContext(TypeContext)[0]
     const [isLoading1, setIsLoading1] = useState(true);
     const [isLoading2, setIsLoading2] = useState(true);
@@ -75,10 +74,10 @@ return (
         <a className='text-dark m-5' href={`/book/view/${book.id}`}><h1>{book.title}</h1></a>
         <Pageview pages={bookpages} ></Pageview>
 
-        { usertype=="author" && <h1>Add Page</h1>}
-        { usertype=="author" && <h1>page number {bookpages.length +1}</h1>}
+        { usertype==="author" && <h1>Add Page</h1>}
+        { usertype==="author" && <h1>page number {bookpages.length +1}</h1>}
 
-        { usertype=="author" && <Addpage book_id={book.id} page_number={bookpages.length +1} ></Addpage>}
+        { usertype==="author" && <Addpage book_id={book.id} page_number={bookpages.length +1} ></Addpage>}
 
 
     </div>

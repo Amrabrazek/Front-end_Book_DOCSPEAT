@@ -17,7 +17,7 @@ export function PageEditPage() {
         if(localStorage.getItem('access_token') === null){                   
             window.location.href = '/login'
         }
-        else if(user_type !="author"){
+        else if(user_type !=="author"){
             window.location.href = '/'
         }
         else{

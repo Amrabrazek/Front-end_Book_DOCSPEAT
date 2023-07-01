@@ -38,7 +38,7 @@ export function Homeandothers() {
     }, []);
 
     if (isLoading) {
-        return <div className="d-flex jsutify-content-center m-5 align-items-center"><h1>Loading...</h1></div>;
+        return <div className="d-flex jsutify-content-center m-5 align-items-center"><h1>check Activation</h1></div>;
     }
     // console.log(user)
 

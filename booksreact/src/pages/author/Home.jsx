@@ -11,7 +11,14 @@ export function Home() {
   // console.log(user_type)
   const [isLoading, setIsLoading] = useState(true);
   const [books, setBooks] = useState([]);
-  let apiUrl = `http://127.0.0.1:8000/book/authorbooks/${user_id}`
+  let apiUrl = ""
+  if (user_type == 'author') {
+    apiUrl = `http://127.0.0.1:8000/book/authorbooks/${user_id}`
+  }
+  else {
+    apiUrl = `http://127.0.0.1:8000/book/`
+  }
+  
 
   useEffect(() => {
     if(localStorage.getItem('access_token') === null){                   
@@ -43,13 +50,13 @@ if (isLoading) {
 
 return (
     <div>
-        {user_type=="author"? 
+
         <div>
             <Slider books={books} ></Slider>
             <h1>Books</h1>
             <Bookscards books={books}></Bookscards>
         </div> 
-        : null }
+
         
     </div>
 );

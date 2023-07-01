@@ -7,6 +7,7 @@ import { Loginpage } from './pages/Loginpage';
 import { NotFound } from './pages/Notfound';
 import { Profile } from './pages/author/Profile';
 import { Homeandothers } from './pages/Homeandothers';
+import { Home } from './pages/author/Home';
 
 import { Addbookpage } from './pages/author/Addbookpage';
 import { Editbookpage } from './pages/author/Editbookpage';
@@ -16,8 +17,6 @@ import { PageViewPage } from './pages/author/PageViewPage';
 import { PageEditPage } from './pages/author/PageEditPage';
 
 import {Mynav} from "./components/Mynav";
-// import TouchBallLoading from './components/TouchBallLoading';
-// import {Home} from './components/home';
 import {Logout} from './components/logout';
 
 import {
@@ -36,6 +35,7 @@ function App() {
   useEffect(() => {
       if(localStorage.getItem('access_token') === null){                   
           console.log("not auth yet")
+          setIsLoading(false);
       }
       else{
       (async () => {
@@ -56,6 +56,7 @@ function App() {
       } catch (e) {
           console.log(e)
           console.log('not auth')
+          
       }
       })()};
 
@@ -72,7 +73,7 @@ function App() {
 
 
   if (isLoading) {
-    return <div className="d-flex jsutify-content-center m-5 align-items-center"><h1>   Loading...</h1></div>;
+    return <div className="d-flex jsutify-content-center m-5 align-items-center"><h1>   Loading user info</h1></div>;
   }
 
   const user_id = userId
@@ -87,7 +88,7 @@ function App() {
             <Route path="/login" element={<Loginpage/>}/>
             <Route path="/logout" element={<Logout/>}/>
 
-            <Route path="/" element={<Homeandothers/>}/>
+            <Route path="/" element={<Home/>}/>
             <Route path="/profile/:profile_id" element={<Profile />} />
 
             <Route path="/book/add" element={<Addbookpage />} />
