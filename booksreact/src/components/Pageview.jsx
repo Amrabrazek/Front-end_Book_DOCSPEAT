@@ -53,6 +53,10 @@ function Pageview(props) {
     }
 
 
+    const removeBookFromReadingList = () => {
+        console.log("removed")
+    }
+
     return (
 
         <div className="book-container">
@@ -130,6 +134,16 @@ function Pageview(props) {
             </Col>
 
         </Row>
+
+        { user_type=="reader"? 
+        <Row >
+            <Col xs={12}>
+            <Button variant="success" onClick={removeBookFromReadingList} >
+                    Finished Reading 
+            </Button>
+            </Col>
+        </Row>
+        : null}
     </Container>
 
 

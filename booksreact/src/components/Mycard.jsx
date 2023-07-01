@@ -1,11 +1,20 @@
 import React, {useContext} from 'react'
 import { Card, Button, NavLink} from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
-import { TypeContext } from '../context';
+import { TypeContext, UserContext } from '../context';
+import axios from "axios";
 
 export function Mycard(prop) {
     let {book} = prop
-    // console.log(book.book_cover)
+    const user_id =  useContext(UserContext)[0]
+    const user_type =  useContext(TypeContext)[0]
+    let BookReadeURL = `http://127.0.0.1:8000/book/newreader`
+    const submitValues = 
+    {
+        "reader":user_id,
+        "book":book.id
+    }
+    let navigate = useNavigate()
     
     let pictureurl = book.book_cover
     if (pictureurl != null)
@@ -14,11 +23,30 @@ export function Mycard(prop) {
             pictureurl='http://127.0.0.1:8000'+pictureurl
         }
     }
-    console.log(pictureurl)
-    const user_type =  useContext(TypeContext)[0]
-    let navigate = useNavigate()
-    // console.log(book)
-    // console.log(product)
+
+
+    const addbook = () => {
+        axios
+            .post(BookReadeURL, submitValues,
+            {
+                headers: 
+                {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                }
+            })
+            .then((response) => {
+                console.log("done!");
+                console.log(response)
+                window.location.reload();
+
+            })
+            .catch(err => {
+                console.log("error")
+                console.log(err);
+            });
+    }
+
     return (
     <div className='m-2'> 
         <Card style={{ width: '18rem', height: "350px" }}>
@@ -55,7 +83,14 @@ export function Mycard(prop) {
                             }} 
                             variant="success">check Book
                         </Button>
+
+                        <Button 
+                            onClick={addbook} 
+                            variant="success">Add Book
+                        </Button>
                     </div>
+
+                    
                 }
                 
         </Card.Body>

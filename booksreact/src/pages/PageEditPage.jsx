@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Editpage } from '../../components/Editpage';
+import { Editpage } from '../components/Editpage';
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { TypeContext} from '../../context'
+import { TypeContext} from '../context'
+import { RenewableEnergy } from '../components/RenewableEnergy';
+import { ContactUs } from '../components/ContactUs';
+import { Footer } from '../components/Footer';
 
 
 export function PageEditPage() { 
@@ -50,6 +53,9 @@ export function PageEditPage() {
         <div><h1>{page.book.title}</h1></div>
         <div><h1>page: {page.page_number}</h1></div>
         <Editpage page={page}></Editpage>
+        <RenewableEnergy />
+        <ContactUs />
+        <Footer />
     </div>
     )
 }

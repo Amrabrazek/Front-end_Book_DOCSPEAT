@@ -1,11 +1,13 @@
-import React from "react";
+import React,{useContext} from "react";
 import { Container, Row, Col, Image } from 'react-bootstrap';
-
-
+import { Button } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
+import { TypeContext} from '../context'
 
 export function Profiledetails(prop) {
     let {author} = prop
-
+    const navigate = useNavigate()
+    const user_type =  useContext(TypeContext)[0]
   // console.log(author)
 
     return (
@@ -16,6 +18,7 @@ export function Profiledetails(prop) {
                 <h1>{author.first_name} {author.last_name}</h1>
             </Col>
         </Row>
+
         <Row>
             <Col md={12}>
                 <Image
@@ -31,6 +34,17 @@ export function Profiledetails(prop) {
                 />
             </Col>
         </Row>
+
+        { user_type==="author" && 
+        <Row >
+            <Col md={12}>
+                <Button variant="success" onClick={() => {navigate(`/profile/edit`)}} >
+                        Edit Profile
+                </Button>
+            </Col>
+        </Row>
+        }
+
         <Row >
             <Col md={2}>
 

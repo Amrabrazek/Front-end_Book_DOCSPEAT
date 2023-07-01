@@ -5,19 +5,23 @@ import { Route, Routes } from 'react-router-dom';
 import { Registeration } from './pages/Registeration';
 import { Loginpage } from './pages/Loginpage';
 import { NotFound } from './pages/Notfound';
-import { Profile } from './pages/author/Profile';
+import { Profile } from './pages/Profile';
 import { Homeandothers } from './pages/Homeandothers';
-import { Home } from './pages/author/Home';
+import { Home } from './pages/Home';
 
-import { Addbookpage } from './pages/author/Addbookpage';
-import { Editbookpage } from './pages/author/Editbookpage';
-import { BookViewPage } from './pages/author/BookViewPage';
+import { Addbookpage } from './pages/Addbookpage';
+import { Editbookpage } from './pages/Editbookpage';
+import { BookViewPage } from './pages/BookViewPage';
 
-import { PageViewPage } from './pages/author/PageViewPage';
-import { PageEditPage } from './pages/author/PageEditPage';
+import { PageViewPage } from './pages/PageViewPage';
+import { PageEditPage } from './pages/PageEditPage';
+
+import { ProfileEditPage } from './pages/ProfileEditPage';
+
+import { ReaderBooksPage } from './pages/ReaderBooksPage';
+
 
 import {Mynav} from "./components/Mynav";
-import {Logout} from './components/logout';
 
 import {
   UserContext,
@@ -73,7 +77,7 @@ function App() {
 
 
   if (isLoading) {
-    return <div className="d-flex jsutify-content-center m-5 align-items-center"><h1>   Loading user info</h1></div>;
+    return <div className="d-flex justify-content-center m-5 align-items-center"><h1>Loading user info ......</h1></div>;
   }
 
   const user_id = userId
@@ -86,7 +90,6 @@ function App() {
           <Routes>
             <Route path="/register" element={<Registeration />} />
             <Route path="/login" element={<Loginpage/>}/>
-            <Route path="/logout" element={<Logout/>}/>
 
             <Route path="/" element={<Home/>}/>
             <Route path="/profile/:profile_id" element={<Profile />} />
@@ -98,6 +101,11 @@ function App() {
 
             <Route path="/page/edit/:page_id" element={<PageEditPage />} />
             <Route path="/page/view/:book_id" element={<PageViewPage />} />
+
+            <Route path="/profile/edit" element={<ProfileEditPage />} />
+
+            <Route path="/myreadings" element={<ReaderBooksPage />} />
+
 
             
 

@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import Pageview  from '../../components/Pageview';
-import { Addpage }  from '../../components/Addpage';
-import {  TypeContext } from '../../context'
+import Pageview  from '../components/Pageview';
+import { Addpage }  from '../components/Addpage';
+import {  TypeContext } from '../context'
 import axios from "axios";
+import { RenewableEnergy } from '../components/RenewableEnergy';
+import { ContactUs } from '../components/ContactUs';
+import { Footer } from '../components/Footer';
 
 
 export function PageViewPage() {
@@ -56,6 +59,7 @@ export function PageViewPage() {
         //   console.log(author)
         })
         .catch(err => {
+            setBookpages([]);
             console.log(err);
         });
         
@@ -70,16 +74,22 @@ console.log(bookpages)
 
 return (
     <div>
-
-        <a className='text-dark m-5' href={`/book/view/${book.id}`}><h1>{book.title}</h1></a>
-        <Pageview pages={bookpages} ></Pageview>
+        { bookpages.length === 0? <div>No pages in this book</div> : 
+        <div>
+            <a className='text-dark m-5' href={`/book/view/${book.id}`}>
+                <h1>{book.title}</h1>
+                </a>
+            <Pageview pages={bookpages} ></Pageview>
+        </div>}
 
         { usertype==="author" && <h1>Add Page</h1>}
         { usertype==="author" && <h1>page number {bookpages.length +1}</h1>}
 
         { usertype==="author" && <Addpage book_id={book.id} page_number={bookpages.length +1} ></Addpage>}
 
-
+        <RenewableEnergy />
+        <ContactUs />
+        <Footer />
     </div>
 );
 }

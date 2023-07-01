@@ -93,11 +93,9 @@ export function BookView(prop) {
 
                     </div> 
                     : <div>
-                        <NavLink className="nav-link" to={`/editbook/${book.id}`}>
-                            <Button variant="success" >
-                                Start Reading
-                            </Button>
-                        </NavLink >
+                        <Button variant="success" onClick={() => {navigate(`/page/view/${book.id}`)}} >
+                            Start Reading 
+                        </Button>
                     
                     </div>}
                 

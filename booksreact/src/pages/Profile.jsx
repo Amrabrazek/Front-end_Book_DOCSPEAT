@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Bookscards } from '../../components/Bookscards';
-import { Profiledetails } from '../../components/Profiledetails';
+import { Bookscards } from '../components/Bookscards';
+import { Profiledetails } from '../components/Profiledetails';
 import axios from "axios";
+import { RenewableEnergy } from '../components/RenewableEnergy';
+import { ContactUs } from '../components/ContactUs';
+import { Footer } from '../components/Footer';
 
 
 export function Profile() {
@@ -72,6 +75,9 @@ if (isLoading1 || isLoading2) {
       <Profiledetails author={author} ></Profiledetails>
       <h1 className='m-5'>Book</h1>
       <Bookscards books={books}></Bookscards>
+      <RenewableEnergy />
+        <ContactUs />
+        <Footer />
     </div>
   );
 }

@@ -112,9 +112,8 @@ export function Registeration() {
         console.log("iamhereeeeeeeeeeeeeeeeeeeeee")
         setIsSuccesfull(true);
         console.log(response);
-        setTimeout(() => {
-          navigate('/login');
-        }, 2000);
+        navigate('/login');
+
         })
       .catch(err => {
           console.log(err.response.data)

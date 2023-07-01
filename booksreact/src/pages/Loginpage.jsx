@@ -8,7 +8,6 @@ import axios from 'axios';
 
 export function Loginpage() {
     const navigate = useNavigate();
-    // const { authUser, setAuthUser } = useContext(AuthContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -18,38 +17,6 @@ export function Loginpage() {
     });
 
      // Create the submit method.
-    const submitx = async e => {
-        e.preventDefault();
-        const user = {
-                email: email,
-                password: password
-                };
-        try{
-          const { data } = await axios.post('http://localhost:8000/user/token/', user,
-          {
-              headers: { 'Content-Type': 'application/json' },
-              withCredentials: true
-          }
-          );
-          console.log(data)
-
-                   // Initialize the access & refresh token in localstorage.      
-          localStorage.clear();
-          localStorage.setItem('access_token', data.access);
-          localStorage.setItem('refresh_token', data.refresh);
-          axios.defaults.headers.common['Authorization'] = 
-                                          `Bearer ${data['access']}`;
-          window.location.href = '/reg'
-          } 
-        catch (err) {
-          console.log(err);
-          setError({
-            submit: true,
-          });
-        }
-    }
-
-
     const submit = async e => {
       e.preventDefault();
       const user = {
@@ -82,8 +49,6 @@ export function Loginpage() {
       }
     };
 
-
-
   return (
     <div className="login d-flex flex-column justify-content-center align-items-center">
       <h1 className="text-dark">BOOKS</h1>
@@ -91,8 +56,8 @@ export function Loginpage() {
         onSubmit={submit}
         className="login-form bg-dark p-5 d-flex flex-column"
       >
+        {/* Email Field */}
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          {/* Email Field */}
           <Form.Label>Email address</Form.Label>
           <Form.Control
             onChange={e => {setEmail(e.target.value)}}

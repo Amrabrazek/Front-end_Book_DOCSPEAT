@@ -1,7 +1,7 @@
 import React from 'react';
 import './footer.css';
 
-export default function Footer() {
+export function Footer() {
   return (
     <div className="footer">
       <div className="iconSection">
@@ -11,7 +11,7 @@ export default function Footer() {
         </svg>
         <div> Egypt | English (US) | $ (USD)</div>
       </div>
-      <div> &#169; ECHO</div>
+      <div> &#169; BOOKS</div>
     </div>
   );
 }

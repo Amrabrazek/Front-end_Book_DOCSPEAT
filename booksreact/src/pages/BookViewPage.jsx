@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { Bookscards } from '../../components/Bookscards';
-import { BookView } from '../../components/BookView';
-import { UserContext, TypeContext} from '../../context'
+import { Bookscards } from '../components/Bookscards';
+import { BookView } from '../components/BookView';
+import { UserContext, TypeContext} from '../context'
+import { RenewableEnergy } from '../components/RenewableEnergy';
+import { ContactUs } from '../components/ContactUs';
+import { Footer } from '../components/Footer';
 import axios from "axios";
 
 
@@ -83,6 +86,10 @@ return (
         <BookView book={book} ></BookView>
         <h1 className='m-5'>Other Books</h1>
         <Bookscards books={otherbooks.slice(0,4)}></Bookscards>
+        <RenewableEnergy />
+        <ContactUs />
+        <Footer />
+        
     </div>
 );
 }

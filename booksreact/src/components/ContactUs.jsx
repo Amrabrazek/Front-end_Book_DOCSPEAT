@@ -1,7 +1,7 @@
 import React from 'react';
 import './contactUs.css';
 
-export default function ContactUs() {
+export  function ContactUs() {
   return (
     <div className="contactUs">
       <div className="flex-col">
@@ -23,7 +23,7 @@ export default function ContactUs() {
       </div>
       <div>
         <div className="bold">About</div>
-        <div className="onhover">ECHO, Inc.</div>
+        <div className="onhover">BOOKS, Inc.</div>
         <div className="onhover">Policies</div>
         <div className="onhover">Investors</div>
         <div className="onhover">Careers</div>

@@ -3,7 +3,7 @@
     circle{
        
     transform-origin: center center;
-        animation: animateRegisterBG alternate infinite 5s;
+        animation: animateRegisterBG alternate infinite 7s;
     }
   
 
@@ -15,7 +15,7 @@
   }
   to {
     
-    fill: rgb(241 100 30/ 0.8);
+    fill: rgb(100 100 100/ 0.8);
     transform: scale(1.2);
     
    

@@ -2,7 +2,7 @@ import React from 'react'
 import { UserContext } from '../context'
 import{ useEffect, useState, useContext } from "react";
 import axios from 'axios';
-import { Home } from './author/Home';
+import { Home } from './Home';
 
 export function Homeandothers() {
     const user_id =  useContext(UserContext)[0]

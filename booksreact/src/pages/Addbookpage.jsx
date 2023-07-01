@@ -1,6 +1,9 @@
 import React, {useContext, useEffect} from "react";
-import { Addbook } from '../../components/Addbook';
-import { TypeContext} from '../../context'
+import { Addbook } from '../components/Addbook';
+import { TypeContext} from '../context'
+import { RenewableEnergy } from '../components/RenewableEnergy';
+import { ContactUs } from '../components/ContactUs';
+import { Footer } from '../components/Footer';
 
 
 export function Addbookpage() { 
@@ -23,6 +26,10 @@ export function Addbookpage() {
         <div><h1>Add Book</h1></div>
 
         <Addbook></Addbook>
+        <RenewableEnergy />
+        <ContactUs />
+        <Footer />
+        
     </div>
     )
 }

@@ -1,17 +1,40 @@
 import React, {useContext, useState, useEffect} from 'react'
-import {  Nav } from "react-bootstrap";
 import { NavLink } from 'react-router-dom'
 import { UserContext, TypeContext } from '../context'
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 import './mynav.css';
 
 
 export  function Mynav() {
-
+  let navigate = useNavigate()
   const author_id =  useContext(UserContext) 
   let user = author_id
-  const type =  useContext(TypeContext) 
+  const type =  useContext(TypeContext)[0]
   const [isAuth, setIsAuth] = useState(false);
 
+  function logout() {
+    axios
+      .post(
+        'http://127.0.0.1:8000/user/logout/',
+        {
+          refresh: localStorage.getItem('refresh_token'),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+          },
+        }
+      )
+      .then((response) => {
+        axios.defaults.headers.common['Authorization'] = null;
+        localStorage.clear();
+        window.location.reload();
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  }
 
   useEffect(() => {
     if (localStorage.getItem('access_token') !== null) {
@@ -68,11 +91,11 @@ export  function Mynav() {
           :null }
             
 
-          <Nav.Link href="/logout">
+          <div onClick={logout}>
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-door-closed-fill" viewBox="0 0 16 16">
               <path d="M12 1a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V2a1 1 0 0 1 1-1h8zm-2 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
             </svg>
-          </Nav.Link>
+          </div>
           
         </div>
       </div>

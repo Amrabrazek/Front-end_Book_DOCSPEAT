@@ -15,10 +15,18 @@ export  function Slider(prop) {
       (<div></div>) : 
       (<Carousel>
         {filteredBooks.map((book) => {
+          let pictureurl = book.book_cover
+          if (pictureurl != null)
+          {
+              if(!pictureurl.includes("http")){
+                  pictureurl='http://127.0.0.1:8000'+pictureurl
+              }
+          }
+
           return <Carousel.Item className='carousel-itemx' key={book.id}  interval={2000}>
             <img 
               className="carousel-image"
-              src= {`${book.book_cover}`}
+              src= {`${pictureurl}`}
               alt="dawdwad"
             />
               <Carousel.Caption className="text-dark">
